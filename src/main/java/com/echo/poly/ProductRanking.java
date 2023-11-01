@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderSummary implements Serializable {
+public class ProductRanking implements Serializable {
 
     private static final long serialVersionUID = 6836530909471066135L;
 

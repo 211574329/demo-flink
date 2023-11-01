@@ -1,4 +1,4 @@
-package com.echo.bo;
+package com.echo.poly;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,31 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
- * 订单通知flink
+ * flink统计对象
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderFlinkBO implements Serializable {
+public class OrderRanking implements Serializable {
 
-    /**
-     * 订单编号
-     */
-    private Long orderNo;
-
-    /**
-     * 产品spu-id
-     */
-    private Long spuId;
-
-    /**
-     * spu名称
-     */
-    private String spuName;
+    private static final long serialVersionUID = 6836530909471066135L;
 
     /**
      * 产品sku-id
@@ -43,19 +29,9 @@ public class OrderFlinkBO implements Serializable {
     private String skuName;
 
     /**
-     * 订单商品总数
+     * 商品购买数量
      */
-    private Integer allCount;
-
-    /**
-     * 产品价格
-     */
-    private BigDecimal price;
-
-    /**
-     * 总值
-     */
-    private BigDecimal total;
+    private Integer count;
 
     /**
      * 用户所在地区编号
@@ -66,4 +42,5 @@ public class OrderFlinkBO implements Serializable {
      * 用户所在地区名称
      */
     private String areaName;
+
 }

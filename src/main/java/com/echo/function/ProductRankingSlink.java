@@ -1,13 +1,13 @@
 package com.echo.function;
 
-import com.echo.poly.OrderSummary;
+import com.echo.poly.ProductRanking;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-public class OrderRedisSlink<T> extends RichSinkFunction<OrderSummary> {
+public class ProductRankingSlink<T> extends RichSinkFunction<ProductRanking> {
 
     private static JedisPoolConfig config;
     private static JedisPool pool;
@@ -33,13 +33,14 @@ public class OrderRedisSlink<T> extends RichSinkFunction<OrderSummary> {
 
     @Override
     public void open(Configuration parameters) throws Exception {
+        pool = new JedisPool(config, "", 6379, 3000, "E_.", 1);
         jedis = pool.getResource();
     }
 
     @Override
-    public void invoke(OrderSummary order, Context context) {
-        String skuId = order.getSkuId().toString();
-        Integer count = order.getCount();
+    public void invoke(ProductRanking ranking, Context context) {
+        String skuId = ranking.getSkuId().toString();
+        Integer count = ranking.getCount();
         try {
             // 检查商品是否已存在于排行榜中
             if (jedis.zrank(RANK_KEY, skuId) == null) {
@@ -51,7 +52,7 @@ public class OrderRedisSlink<T> extends RichSinkFunction<OrderSummary> {
             }
             // 存储商品的名称
             if (!jedis.hexists(NAMES_KEY, skuId)) {
-                jedis.hset(NAMES_KEY, skuId, order.getSkuName());
+                jedis.hset(NAMES_KEY, skuId, ranking.getSkuName());
             }
         } catch (Exception e) {
             e.printStackTrace();
