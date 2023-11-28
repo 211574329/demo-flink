@@ -1,7 +1,7 @@
-package com.echo.deser;
+package com.echo.ranking.deser;
 
 import com.alibaba.fastjson2.JSON;
-import com.echo.bo.OrderFlinkBO;
+import com.echo.common.bo.OrderFlinkBO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;

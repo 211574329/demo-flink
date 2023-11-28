@@ -3,13 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.echo</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>tasks</artifactId>
     <version>1.0</version>
+
     <name>demo</name>
     <description>demo</description>
+    <packaging>pom</packaging>
     <properties>
         <java.version>8</java.version>
     </properties>
+
+    <modules>
+        <module>common</module>
+        <module>ranking-task</module>
+    </modules>
+
     <dependencies>
         <!--<dependency>
             <groupId>com.ververica</groupId>
@@ -22,17 +30,17 @@
             <version>1.17.1</version>
         </dependency>-->
         <!--     flink-rabbitMq连接器      -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-rabbitmq</artifactId>
             <version>3.0.1-1.17</version>
-        </dependency>
+        </dependency>-->
         <!-- redis连接器 -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.bahir</groupId>
             <artifactId>flink-connector-redis_2.12</artifactId>
             <version>1.1.0</version>
-        </dependency>
+        </dependency>-->
 
 
         <!--<dependency>

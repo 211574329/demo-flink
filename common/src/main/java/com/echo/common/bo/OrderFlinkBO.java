@@ -1,4 +1,4 @@
-package com.echo.bo;
+package com.echo.common.bo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,7 +60,7 @@ public class OrderFlinkBO implements Serializable {
     /**
      * 用户所在地区编号
      */
-    private Integer areaNo;
+    private Integer areaId;
 
     /**
      * 用户所在地区名称

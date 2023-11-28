@@ -1,4 +1,4 @@
-package com.echo.poly;
+package com.echo.ranking.poly;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRanking implements Serializable {
+public class AreaProductRanking implements Serializable {
 
     private static final long serialVersionUID = 6836530909471066135L;
 
@@ -32,5 +32,15 @@ public class ProductRanking implements Serializable {
      * 商品购买数量
      */
     private Integer count;
+
+    /**
+     * 用户所在地区编号
+     */
+    private Integer areaId;
+
+    /**
+     * 用户所在地区名称
+     */
+    private String areaName;
 
 }

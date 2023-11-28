@@ -1,7 +1,7 @@
-package com.echo.function;
+package com.echo.ranking.function;
 
-import com.echo.bo.OrderFlinkBO;
-import com.echo.poly.ProductRanking;
+import com.echo.common.bo.OrderFlinkBO;
+import com.echo.ranking.poly.ProductRanking;
 import org.apache.flink.streaming.api.functions.windowing.AllWindowFunction;
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow;
 import org.apache.flink.util.Collector;
@@ -29,8 +29,8 @@ public class ProductRankingApply implements AllWindowFunction<OrderFlinkBO, Prod
     public void apply(GlobalWindow globalWindow, Iterable<OrderFlinkBO> orders, Collector<ProductRanking> out) throws Exception {
         // 汇总订单数量
         Map<Long, ProductRanking> map = new HashMap<>();
-        ProductRanking summary = new ProductRanking();
         for (OrderFlinkBO order : orders) {
+            ProductRanking summary = new ProductRanking();
             Long skuId = order.getSkuId();
             Integer allCount = order.getAllCount();
             ProductRanking productRanking = map.get(skuId);
@@ -42,7 +42,6 @@ public class ProductRankingApply implements AllWindowFunction<OrderFlinkBO, Prod
             summary.setSkuId(skuId);
             summary.setSkuName(order.getSkuName());
             map.put(skuId, summary);
-            System.out.println("订单统计" + summary);
         }
         // 放入out
         map.forEach((k, v) -> out.collect(v));

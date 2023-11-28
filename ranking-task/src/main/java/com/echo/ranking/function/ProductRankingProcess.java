@@ -1,17 +1,14 @@
-package com.echo.function;
+package com.echo.ranking.function;
 
-import com.echo.bo.OrderFlinkBO;
-import com.echo.poly.ProductRanking;
-import org.apache.flink.streaming.api.functions.windowing.ProcessAllWindowFunction;
+import com.echo.common.bo.OrderFlinkBO;
+import com.echo.ranking.poly.ProductRanking;
+import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow;
 import org.apache.flink.util.Collector;
 
-import java.util.HashMap;
-import java.util.Map;
+public class ProductRankingProcess extends ProcessWindowFunction<OrderFlinkBO, ProductRanking, Long, GlobalWindow> {
 
-public class ProductRankingProcess extends ProcessAllWindowFunction<OrderFlinkBO, ProductRanking, GlobalWindow> {
-
-    @Override
+    /*@Override
     public void process(ProcessAllWindowFunction<OrderFlinkBO, ProductRanking, GlobalWindow>.Context context, Iterable<OrderFlinkBO> orders, Collector<ProductRanking> out) throws Exception {
         // 汇总订单数量
         Map<Long, ProductRanking> map = new HashMap<>();
@@ -31,6 +28,20 @@ public class ProductRankingProcess extends ProcessAllWindowFunction<OrderFlinkBO
         }
         // 放入out
         map.forEach((k, v) -> out.collect(v));
-    }
+    }*/
 
+    @Override
+    public void process(Long skuId, ProcessWindowFunction<OrderFlinkBO, ProductRanking, Long, GlobalWindow>.Context context, Iterable<OrderFlinkBO> orders, Collector<ProductRanking> out) throws Exception {
+        int count = 0;
+        for (OrderFlinkBO order : orders) {
+            count += order.getAllCount();
+        }
+
+        // 创建OrderSummary对象并保存结果
+        ProductRanking ranking = new ProductRanking();
+        ranking.setSkuId(skuId);
+        ranking.setSkuName(orders.iterator().next().getSkuName());
+        ranking.setCount(count);
+        out.collect(ranking);
+    }
 }
