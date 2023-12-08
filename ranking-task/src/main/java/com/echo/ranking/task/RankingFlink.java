@@ -9,6 +9,7 @@ import com.echo.ranking.deser.OrderDeserializer;
 import com.echo.ranking.poly.ProductRanking;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.connectors.rabbitmq.RMQDeserializationSchema;
 import org.apache.flink.streaming.connectors.rabbitmq.RMQSource;
 import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
 

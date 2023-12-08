@@ -39,7 +39,8 @@ public class ProductRankingSlink<T> extends RichSinkFunction<ProductRanking> {
 
     @Override
     public void invoke(ProductRanking ranking, Context context) {
-        String skuId = ranking.getSkuId().toString();
+        System.out.println(ranking);
+        /*String skuId = ranking.getSkuId().toString();
         Integer count = ranking.getCount();
         try {
             // 检查商品是否已存在于排行榜中
@@ -56,7 +57,7 @@ public class ProductRankingSlink<T> extends RichSinkFunction<ProductRanking> {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
